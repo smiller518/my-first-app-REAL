@@ -1,0 +1,10 @@
+
+# this is the requirements.txt file...
+
+
+
+requests
+
+plotly
+#plotly requires pandas
+pandas

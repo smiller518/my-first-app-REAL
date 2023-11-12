@@ -11,6 +11,11 @@ conda create -n my-first-env python=3.10
 conda activate my-first-env
 ```
 
+Install packages
+
+```sh
+pip install -r requirements.txt
+```
 
 ## Usage
 
@@ -20,3 +25,8 @@ Run the example script:
 python app/my_script.py
 ```
 
+Run the umemployment report:
+
+```sh
+python app/unemployment.py
+```

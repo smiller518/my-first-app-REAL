@@ -1,16 +1,23 @@
-from getpass import getpass
 
+#imports at the top
+from getpass import getpass
+import json
+from pprint import pprint
+from statistics import mean
 import os
+
+from plotly.express import line
+import requests
 from dotenv import load_dotenv
 
+#environment variables and constants
 load_dotenv() #go look in thte .env file for any env variables
 
 API_KEY = os.getenv("ALPHAVANTAGE_API_KEY")
 
 
-import requests
-import json
-from pprint import pprint
+#breakpoint() # pauses execution of a program wherever we put it
+
 
 request_url = f"https://www.alphavantage.co/query?function=UNEMPLOYMENT&apikey={API_KEY}"
 

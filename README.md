@@ -51,3 +51,16 @@ Send an email:
 ```sh
 python app/email_service.py
 ```
+
+Run the my_mod.puy file
+```sh
+python app/my_mod.py
+```
+
+#testing
+
+run tests:
+
+```sh
+pytest
+```

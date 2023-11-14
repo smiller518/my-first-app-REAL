@@ -1,5 +1,4 @@
 
-
 # this is the "app/my_mod.py" file...
 
 # here is a normal version of this function
@@ -24,6 +23,6 @@ def enlarge(n):
 if __name__ == "__main__":
 
 
-    x = input("Please input a number")
+    x = input("Please input a number: ")
     result = enlarge(x)
     print(result)

@@ -30,12 +30,13 @@ def fetch_data():
     #pprint(parsed_response)
 
     data = parsed_response["data"]
+    return data
 
 if __name__ == "__main__":
     #breakpoint() # pauses execution of a program wherever we put it
 
 
-    data = fetch_data()
+    data = fetch_data() 
 
     # Challenge A
     #

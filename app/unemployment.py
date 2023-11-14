@@ -19,74 +19,77 @@ load_dotenv() #go look in thte .env file for any env variables
 
 API_KEY = os.getenv("ALPHAVANTAGE_API_KEY")
 
+def fetch_data():
+    request_url = f"https://www.alphavantage.co/query?function=UNEMPLOYMENT&apikey={API_KEY}"
 
-#breakpoint() # pauses execution of a program wherever we put it
+    response = requests.get(request_url)
 
+    parsed_response = json.loads(response.text)
+    print(type(parsed_response))
+    print(parsed_response.keys())
+    #pprint(parsed_response)
 
-request_url = f"https://www.alphavantage.co/query?function=UNEMPLOYMENT&apikey={API_KEY}"
+    data = parsed_response["data"]
 
-response = requests.get(request_url)
-
-parsed_response = json.loads(response.text)
-print(type(parsed_response))
-print(parsed_response.keys())
-#pprint(parsed_response)
-
-data = parsed_response["data"]
-
-# Challenge A
-#
-# What is the most recent unemployment rate? And the corresponding date?
-# Display the unemployment rate using a percent sign.
-
-print("-------------------------")
-print("LATEST UNEMPLOYMENT RATE:")
-#print(data[0])
-
-latest_rate = data[0]['value']
-latest_date = data[0]["date"]
-
-print(f"{latest_rate}%", "as of", latest_date)
+if __name__ == "__main__":
+    #breakpoint() # pauses execution of a program wherever we put it
 
 
+    data = fetch_data()
 
-# Challenge B
-#
-# What is the average unemployment rate for all months during this calendar year?
-# ... How many months does this cover?
+    # Challenge A
+    #
+    # What is the most recent unemployment rate? And the corresponding date?
+    # Display the unemployment rate using a percent sign.
 
-from statistics import mean
+    print("-------------------------")
+    print("LATEST UNEMPLOYMENT RATE:")
+    #print(data[0])
 
-this_year = [d for d in data if "2023-" in d["date"]]
+    latest_rate = data[0]['value']
+    latest_date = data[0]["date"]
 
-rates_this_year = [float(d["value"]) for d in this_year]
-#print(rates_this_year)
-
-print("-------------------------")
-print("AVG UNEMPLOYMENT THIS YEAR:", f"{round(mean(rates_this_year), 2)}%")
-print("NO MONTHS:", len(this_year))
-
-# Challenge C
-#
-# Plot a line chart of unemployment rates over time.
-
-from plotly.express import line
-
-dates = [d["date"] for d in data]
-rates = [float(d["value"]) for d in data]
-
-fig = line(x=dates, y=rates, title="United States Unemployment Rate over time", labels= {"x": "Month", "y": "Unemployment Rate"})
-fig.show()
-
-#email sending
-user_address = input("Please enter your email address: ")
+    print(f"{latest_rate}%", "as of", latest_date)
 
 
 
-content = f"""
-<h1> Unemployment Report Email </h1>
+    # Challenge B
+    #
+    # What is the average unemployment rate for all months during this calendar year?
+    # ... How many months does this cover?
 
-<p> Latest rate: {latest_rate}% as of {latest_date} </p>
-"""
+    from statistics import mean
 
-send_email(recipient_address=user_address, html_content=content, subject="Your Unemployment Report")
+    this_year = [d for d in data if "2023-" in d["date"]]
+
+    rates_this_year = [float(d["value"]) for d in this_year]
+    #print(rates_this_year)
+
+    print("-------------------------")
+    print("AVG UNEMPLOYMENT THIS YEAR:", f"{round(mean(rates_this_year), 2)}%")
+    print("NO MONTHS:", len(this_year))
+
+    # Challenge C
+    #
+    # Plot a line chart of unemployment rates over time.
+
+    from plotly.express import line
+
+    dates = [d["date"] for d in data]
+    rates = [float(d["value"]) for d in data]
+
+    fig = line(x=dates, y=rates, title="United States Unemployment Rate over time", labels= {"x": "Month", "y": "Unemployment Rate"})
+    fig.show()
+
+    #email sending
+    user_address = input("Please enter your email address: ")
+
+
+
+    content = f"""
+    <h1> Unemployment Report Email </h1>
+
+    <p> Latest rate: {latest_rate}% as of {latest_date} </p>
+    """
+
+    send_email(recipient_address=user_address, html_content=content, subject="Your Unemployment Report")

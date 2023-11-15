@@ -55,6 +55,6 @@ if __name__ == "__main__":
         <li>Choc </li>
         <li>Strawberry</li>
     </ul>
-"""
+    """
     send_email(html_content=my_content, recipient_address=user_address)
 

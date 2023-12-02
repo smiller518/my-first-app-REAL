@@ -52,6 +52,12 @@ Send an email:
 python app/email_service.py
 ```
 
+Run the stocks report:
+
+```sh
+python -m app.stocks
+```
+
 Run the my_mod.puy file
 ```sh
 python app/my_mod.py
